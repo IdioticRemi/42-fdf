@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:06:23 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/18 12:05:26 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/18 19:19:05 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,47 +23,22 @@ void	ft_exit(char *msg)
 
 void	ft_clean_exit(t_fdf *fdf, char *msg)
 {
+	if (fdf->mlx_ptr && fdf->win_ptr)
+		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+	if (fdf->mlx_ptr)
+		mlx_destroy_display(fdf->mlx_ptr);
 	free(fdf->__tab);
 	free(fdf->tab);
+	free(fdf->mlx_ptr);
 	if (msg)
 		ft_exit(msg);
 	exit(0);
 }
 
-// void	ft_puttab(t_fdf *fdf)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	y = -1;
-// 	while (++y < HEIGHT)
-// 	{
-// 		x = -1;
-// 		while (++x < WIDTH)
-// 		{
-// 			ft_putchar_fd('\t', 1);
-// 			ft_putnbr_fd(fdf->tab[x][y], 1);
-// 		}
-// 		ft_putchar_fd('\n', 1);
-// 	}
-// }
-
-void	ft_init(t_fdf *fdf, char *path)
+int	mlx_exit(t_fdf *fdf)
 {
-	int	x;
-
-	fdf->tab = 0;
-	fdf->__tab = malloc(WIDTH * HEIGHT * sizeof(int));
-	if (!fdf->__tab)
-		ft_clean_exit(fdf, "ERROR: Malloc failed.");
-	ft_bzero((void *) fdf->__tab, WIDTH * HEIGHT * sizeof(int));
-	fdf->tab = malloc(WIDTH * sizeof(int *));
-	if (!fdf->tab)
-		ft_clean_exit(fdf, "ERROR: Malloc failed.");
-	x = -1;
-	while (++x < WIDTH)
-		fdf->tab[x] = &fdf->__tab[x * HEIGHT];
-	(void) path;
+	ft_clean_exit(fdf, NULL);
+	return (0);
 }
 
 int	main(int argc, char *argv[])
@@ -74,6 +49,15 @@ int	main(int argc, char *argv[])
 		ft_exit("ERROR: Usage: ./fdf <map>");
 	if (!ft_file_exists(argv[1]))
 		ft_exit("ERROR: Cannot open file, check name and permissions.");
-	ft_init(&fdf, argv[1]);
+	if (!ft_init(&fdf, argv[1]))
+		ft_clean_exit(&fdf, "ERROR: Failed to initialize fdf.");
+	if (!ft_init_mlx(&fdf))
+		ft_clean_exit(&fdf, "ERROR: Failed to initialize graphics.");
+	if (!ft_init_max_min(&fdf))
+		ft_clean_exit(&fdf, "ERROR: Failed to calculate min and max.");
+	draw(&fdf);
+	mlx_key_hook(fdf.win_ptr, ft_key_handler, &fdf);
+	mlx_hook(fdf.win_ptr, 17, 0, mlx_exit, &fdf);
+	mlx_loop(fdf.mlx_ptr);
 	ft_clean_exit(&fdf, NULL);
 }

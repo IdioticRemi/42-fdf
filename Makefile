@@ -9,7 +9,7 @@ SRC_DIR	= srcs/
 OBJ_DIR	= objs/
 
 # Sources
-__SRCS	= main.c reader.c parser.c gnl.c gnl_utils.c
+__SRCS	= main.c init.c reader.c parser.c graphics.c math.c gnl.c gnl_utils.c
 
 SRCS	= $(addprefix $(SRC_DIR), $(__SRCS))
 OBJS	= $(addprefix $(OBJ_DIR), $(__SRCS:.c=.o))
@@ -18,8 +18,8 @@ OBJS	= $(addprefix $(OBJ_DIR), $(__SRCS:.c=.o))
 CC		= gcc
 
 CFLAGS	= -Wall -Werror -Wextra -O3
-INCLUDE	= -I $(INC_DIR) -I $(LIBFT) -lmlx -lm
-LIBS	= -L $(LIBFT) -lft
+INCLUDE	= -I $(INC_DIR) -I $(LIBFT)
+LIBS	= -L $(LIBFT) -lft -lmlx -lXext -lX11 -lm -lz -lm
 
 # Color
 
