@@ -19,10 +19,16 @@ CC		= gcc
 
 CFLAGS	= -Wall -Werror -Wextra -O3
 INCLUDE	= -I $(INC_DIR) -I $(LIBFT)
-LIBS	= -L $(LIBFT) -lft -lmlx -lXext -lX11 -lm -lz -lm
+LIBS	= -L $(LIBFT) -lft -lmlx -lm
+
+UNAME	= $(shell uname -s)
+ifeq ($(UNAME),Darwin)
+	LIBS += -framework OpenGL -framework AppKit
+else
+	LIBS += -lXext -lX11
+endif
 
 # Color
-
 FG_MAGE	= \033[0;35m
 FG_CYAN	= \033[0;36m
 FG_WHIT	= \033[0;37m
