@@ -23,7 +23,8 @@ LIBS	= -L $(LIBFT) -lft -lm
 
 UNAME	= $(shell uname -s)
 ifeq ($(UNAME),Darwin)
-	LIBS += -L./libmlx -lmlx -framework OpenGL -framework AppKit
+	INCLUDE += -I ./libmlx
+	LIBS += -L ./libmlx -lmlx -framework OpenGL -framework AppKit
 else
 	LIBS += -lmlx -lXext -lX11
 endif
