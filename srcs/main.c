@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:06:23 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/18 19:19:05 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:57:45 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_exit(char *msg)
 
 void	ft_clean_exit(t_fdf *fdf, char *msg)
 {
+	if (fdf->mlx_ptr && fdf->img_ptr)
+		mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
 	if (fdf->mlx_ptr && fdf->win_ptr)
 		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
 	if (fdf->mlx_ptr)

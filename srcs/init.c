@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:30:05 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/18 18:56:07 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:24:17 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,18 @@ int	ft_init_mlx(t_fdf *fdf)
 	fdf->x_shift = SC_W / 8;
 	fdf->y_shift = SC_H / 8;
 	fdf->mlx_ptr = mlx_init();
+	if (!fdf->mlx_ptr)
+		return (0);
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, SC_W, SC_H, "FDF de Remi :D");
+	if (!fdf->win_ptr)
+		return (0);
+	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, SC_W, SC_H);
+	if (!fdf->img_ptr)
+		return (0);
+	fdf->img.addr = mlx_get_data_addr(fdf->img_ptr, &fdf->img.bpp,
+			&fdf->img.line_len, &fdf->img.endian);
+	if (!fdf->img.addr)
+		return (0);
 	return (1);
 }
 

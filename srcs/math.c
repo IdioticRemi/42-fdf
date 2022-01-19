@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:21:16 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/18 18:43:29 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:02:57 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,20 @@ void	ft_scale(t_fdf *fdf, double *x, double *y, double dest[2])
 	*y *= fdf->scale;
 	dest[0] *= fdf->scale;
 	dest[1] *= fdf->scale;
+}
+
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }

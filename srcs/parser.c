@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:23:37 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/18 19:41:49 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:31:25 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int	ft_key_handler(int key, t_fdf *fdf)
 		ft_clean_exit(fdf, NULL);
 	else
 		return (0);
-	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	draw(fdf);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:03:23 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/18 18:54:29 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:03:20 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@
 # define ANGLE 0.8
 # define SCALE_THRESHOLD 1.2
 
-# define MAX(a, b) ((a > b) ? a : b)
-# define MIN(a, b) ((a > b) ? b : a)
-# define ABS(a) (a < 0 ? -a : a)
+# define COLOR_TOP 0xFFFFFF
+# define COLOR_BOT 0x000000
 
-# define COLOR_TOP 0xFF4242
-# define COLOR_BOT 0x42FF42
+typedef struct s_img {
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
 typedef struct s_fdf {
 	int		*__tab;
@@ -48,6 +51,8 @@ typedef struct s_fdf {
 
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*img_ptr;
+	t_img	img;
 
 	int		max;
 	int		min;
@@ -57,9 +62,9 @@ typedef struct s_fdf {
 void	ft_clean_exit(t_fdf *fdf, char *msg);
 
 // Init
-int	ft_init(t_fdf *fdf, char *path);
-int	ft_init_mlx(t_fdf *fdf);
-int	ft_init_max_min(t_fdf *fdf);
+int		ft_init(t_fdf *fdf, char *path);
+int		ft_init_mlx(t_fdf *fdf);
+int		ft_init_max_min(t_fdf *fdf);
 
 // GNL
 char	*get_next_line(int fd);
@@ -81,6 +86,8 @@ int		ft_key_handler(int key, t_fdf *fdf);
 void	ft_transform(t_fdf *fdf, double *x, double *y, double dest[2]);
 void	ft_scale(t_fdf *fdf, double *x, double *y, double dest[2]);
 void	ft_isometric(t_fdf *fdf, double *x, double *y, int z);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int		max(int a, int b);
 
 // Graphics
 void	draw(t_fdf *fdf);

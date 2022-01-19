@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:12:55 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/18 19:41:07 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:03:53 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_gradient(int from, int to, double p)
 int	ft_get_color(t_fdf *fdf, double z)
 {
 	return (ft_gradient(COLOR_BOT, COLOR_TOP,
-			1 - (z + ABS(fdf->min)) / (fdf->max + ABS(fdf->min))));
+			1 - (z + abs(fdf->min)) / (fdf->max + abs(fdf->min))));
 }
 
 double	*ft_point(double point[2], double x, double y)
@@ -57,18 +57,17 @@ void	bresenham(t_fdf *fdf, double x, double y, double dest[2])
 	ft_isometric(fdf, &dest[0], &dest[1], z[1]);
 	ft_transform(fdf, &x, &y, dest);
 	z[2] = x;
-	if (dest[0] > SC_W || dest[1] > SC_H || x < 0 || y < 0)
-		return ;
 	step[0] = dest[0] - x;
 	step[1] = dest[1] - y;
-	z[3] = MAX(ABS(step[0]), ABS(step[1]));
+	z[3] = max(fabs(step[0]), fabs(step[1]));
 	step[0] /= z[3];
 	step[1] /= z[3];
 	while ((int)(x - dest[0]) || (int)(y - dest[1]))
 	{
-		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y,
-			ft_get_color(fdf, z[0] + ((x - z[2]) / (
-						dest[0] - z[2])) * (z[1] - z[0])));
+		if (!(x >= SC_W || y >= SC_H || x < 0 || y < 0))
+			my_mlx_pixel_put(&fdf->img, x, y,
+				ft_get_color(fdf, z[0] + ((x - z[2]) / (
+							dest[0] - z[2])) * (z[1] - z[0])));
 		x += step[0];
 		y += step[1];
 	}
@@ -80,6 +79,7 @@ void	draw(t_fdf *fdf)
 	int		x;
 	int		y;
 
+	ft_bzero(fdf->img.addr, fdf->img.line_len * SC_H);
 	y = -1;
 	while (++y < fdf->height)
 	{
@@ -92,4 +92,5 @@ void	draw(t_fdf *fdf)
 				bresenham(fdf, x, y, ft_point(d, x, y + 1));
 		}
 	}
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 }
