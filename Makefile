@@ -19,13 +19,13 @@ CC		= gcc
 
 CFLAGS	= -Wall -Werror -Wextra -O3
 INCLUDE	= -I $(INC_DIR) -I $(LIBFT)
-LIBS	= -L $(LIBFT) -lft -lmlx -lm
+LIBS	= -L $(LIBFT) -lft -lm
 
 UNAME	= $(shell uname -s)
 ifeq ($(UNAME),Darwin)
-	LIBS += -framework OpenGL -framework AppKit
+	LIBS += -L./libmlx -lmlx -framework OpenGL -framework AppKit
 else
-	LIBS += -lXext -lX11
+	LIBS += -lmlx -lXext -lX11
 endif
 
 # Color
