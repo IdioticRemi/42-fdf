@@ -41,6 +41,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)/$(NAME).h
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "."
 
+all: log $(NAME)
+
 $(NAME): $(OBJS)
 	@printf " [$(words $(OBJS))]\n"
 	@make -s -C $(LIBFT) all
@@ -49,8 +51,6 @@ $(NAME): $(OBJS)
 
 log:
 	@printf "[ FDF ] $(FG_CYAN)Starting build process.$(FG_WHIT)\n"
-
-all: log $(NAME)
 
 clean:
 	@make -s -C$(LIBFT) clean
