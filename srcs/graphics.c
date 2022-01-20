@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:12:55 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/19 21:03:53 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:36:11 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int	ft_gradient(int from, int to, double p)
 	double	t[3];
 	int		ret[3];
 
-	if (p == 1)
+	if (p >= 1)
 		return (from);
+	if (p <= 0)
+		return (to);
 	f[0] = from >> 16;
 	f[1] = (from >> 8) - ((int)f[0] << 8);
 	f[2] = from - ((int)f[0] << 16) - ((int)f[1] << 8);

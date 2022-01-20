@@ -1,3 +1,5 @@
+UNAME	= $(shell uname -s)
+
 # Program name
 NAME	= fdf
 
@@ -10,6 +12,11 @@ OBJ_DIR	= objs/
 
 # Sources
 __SRCS	= main.c init.c reader.c parser.c graphics.c math.c gnl.c gnl_utils.c
+ifeq ($(UNAME),Darwin)
+	__SRCS += clean_mac.c
+else
+	__SRCS += clean_linux.c
+endif
 
 SRCS	= $(addprefix $(SRC_DIR), $(__SRCS))
 OBJS	= $(addprefix $(OBJ_DIR), $(__SRCS:.c=.o))
@@ -21,7 +28,6 @@ CFLAGS	= -Wall -Werror -Wextra -O3
 INCLUDE	= -I $(INC_DIR) -I $(LIBFT)
 LIBS	= -L $(LIBFT) -lft -lm
 
-UNAME	= $(shell uname -s)
 ifeq ($(UNAME),Darwin)
 	INCLUDE += -I ./libmlx
 	LIBS += -L./libmlx -lmlx -framework OpenGL -framework AppKit

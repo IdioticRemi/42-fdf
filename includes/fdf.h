@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:03:23 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/19 21:03:20 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:49:57 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "fcntl.h"
 # include "mlx.h"
 # include "math.h"
+# include "keys_linux.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4096
@@ -58,8 +59,11 @@ typedef struct s_fdf {
 	int		min;
 }	t_fdf;
 
-// Main
+// Clean
 void	ft_clean_exit(t_fdf *fdf, char *msg);
+
+// Main
+void	ft_exit(char *msg);
 
 // Init
 int		ft_init(t_fdf *fdf, char *path);

@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:23:37 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/19 20:31:25 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:33:22 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,25 +99,25 @@ int	ft_parse_map(t_fdf *fdf, char *path)
 
 int	ft_key_handler(int key, t_fdf *fdf)
 {
-	if (key == 113)
+	if (key == KEY_Q)
 		fdf->scale /= SCALE_THRESHOLD;
-	else if (key == 101)
+	else if (key == KEY_E)
 		fdf->scale *= SCALE_THRESHOLD;
-	else if (key == 97)
+	else if (key == KEY_D)
 		fdf->x_shift += (SC_W / 10);
-	else if (key == 119)
+	else if (key == KEY_W)
 		fdf->y_shift += (SC_H / 10);
-	else if (key == 115)
+	else if (key == KEY_S)
 		fdf->y_shift -= (SC_H / 10);
-	else if (key == 100)
+	else if (key == KEY_A)
 		fdf->x_shift -= (SC_W / 10);
-	else if (key == 65362)
+	else if (key == KEY_UP)
 		fdf->scale_z += 1;
-	else if (key == 65364)
+	else if (key == KEY_DOWN)
 		fdf->scale_z -= 1;
-	else if (key == 65361)
+	else if (key == KEY_LEFT || key == KEY_RIGHT)
 		fdf->scale_z = -fdf->scale_z;
-	else if (key == 65307)
+	else if (key == KEY_ESC)
 		ft_clean_exit(fdf, NULL);
 	else
 		return (0);
