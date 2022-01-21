@@ -6,7 +6,7 @@
 /*   By: tjolivea <tjolivea@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:12:55 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/01/20 14:36:11 by tjolivea         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:50:40 by tjolivea         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_gradient(int from, int to, double p)
 	ret[0] = f[0] * p + (1 - p) * t[0];
 	ret[1] = f[1] * p + (1 - p) * t[1];
 	ret[2] = f[2] * p + (1 - p) * t[2];
-	return (255 << 24 | ret[0] << 16 | ret[1] << 8 | ret[2]);
+	return (ret[0] << 16 | ret[1] << 8 | ret[2]);
 }
 
 int	ft_get_color(t_fdf *fdf, double z)

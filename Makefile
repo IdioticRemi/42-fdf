@@ -69,6 +69,6 @@ fclean:
 	@printf "[ FDF ] $(FG_MAGE)Program files cleaned.$(FG_WHIT)\n"
 
 norm:
-	@norminette $(SRC_DIR)
+	@norminette $(SRC_DIR) $(INC_DIR)
 
 re: fclean all
